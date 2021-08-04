@@ -132,3 +132,54 @@ public class Startup
 ```
 
 If you already have `AddHttpClient()` in your service collection (which is likely the case), then no action is required.
+
+
+## Entity Framework Core Integration
+
+ The integration will automatically be enabled if Sentry is enabled and Entity Framework Core is detected. This integration will automatically create spans based on EF.Core operations like the database connection lifespan, query optimization and execution.
+  
+
+`db.connection`
+
+: Represents the database connection lifespan 
+
+additional data:
+
+rows_send
+bytes_received
+bytes_send
+
+`db.query_compiler`
+
+: It's the process of optimizing the query before executing it, it usually generates one per-query command, for example if you execute the same command twice, it'll only compile it once.
+
+`db.query`
+
+: Responsible for measuring the time of execution from the query.
+
+
+## SqlClient Integration
+
+WIP is not allowed.
+
+`db.connection`
+
+: Represents the database connection lifespan 
+
+additional data:
+
+rows_send
+bytes_received
+bytes_send
+
+`db.query_compiler`
+
+: It's the process of optimizing the query before executing it, it usually generates one per-query command, for example if you execute the same command twice, it'll only compile it once.
+
+`db.query`
+
+: Responsible for measuring the time of execution from the query.
+
+For the SQL integration, you may see the following data with spans:
+* db.connection_id: Is the connection Id.
+* db.operation_id: Is the id from the operation.
